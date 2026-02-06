@@ -10,4 +10,4 @@ PLAYER_SPEED = 5
 
 class Player(arcade.Sprite):
     def __init__(self):
-        super().__init__("images/.png")
+        super().__init__("PICTURES/.png")
