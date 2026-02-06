@@ -8,6 +8,6 @@ SCREEN_TITLE = "Пешерный пацик"
 PLAYER_SPEED = 5
 
 
-class Player:
+class Player(arcade.Sprite):
     def __init__(self):
-        super().__init__()
+        super().__init__("images/.png")
