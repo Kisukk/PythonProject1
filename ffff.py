@@ -316,12 +316,6 @@ class MyGame(arcade.Window):
                 400, 40,
                 (0, 100, 0, 150)
             )
-            arcade.draw_text(
-                "✅ Монет достаточно! Идите к двери!",
-                SCREEN_WIDTH // 2, SCREEN_HEIGHT - 200,
-                arcade.color.GREEN, 20,
-                anchor_x="center", anchor_y="center"
-            )
 
         if self.game_victory:
             arcade.draw_lbwh_rectangle_filled(
