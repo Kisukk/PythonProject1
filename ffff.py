@@ -11,7 +11,8 @@ GRAVITY = 0.5
 JUMP_FORCE = 12
 CAMERA_LERP = 0.1
 COINS_PER_ROUND = 10
-ZOMBIE_COUNT = 5  # Количество зомби
+ZOMBIE_COUNT = 5
+LIFE_COST = 5
 
 
 class Player(arcade.Sprite):
@@ -51,9 +52,9 @@ class Player(arcade.Sprite):
         self.center_y += self.change_y
 
         if not self.on_ground:
-            self.texture = self.jump_texture  # Текстура прыжка
+            self.texture = self.jump_texture
         else:
-            self.texture = self.idle_texture  # Обычная текстура
+            self.texture = self.idle_texture
 
     def update_physics(self, collision_list):
         self.on_ground = False
@@ -95,6 +96,14 @@ class Player(arcade.Sprite):
             return True
         return False
 
+    def buy_life(self):
+
+        if self.total_coins >= LIFE_COST:
+            self.total_coins -= LIFE_COST
+            self.lives += 1
+            return True
+        return False
+
 
 class Zombie(arcade.Sprite):
     def __init__(self, x, y):
@@ -116,20 +125,20 @@ class Zombie(arcade.Sprite):
         self.on_ground = False
 
     def update(self, platforms):
-        # Гравитация
+
         self.change_y -= GRAVITY
 
-        # Патрулирование
+
         if abs(self.center_x - self.start_x) > self.patrol_distance:
             self.direction *= -1
 
         self.change_x = self.speed * self.direction
 
-        # Обновление позиции
+
         self.center_x += self.change_x
         self.center_y += self.change_y
 
-        # Проверка столкновений с платформами
+
         self.on_ground = False
         for platform in platforms:
             if self.collides_with_sprite(platform):
@@ -148,14 +157,14 @@ class Zombie(arcade.Sprite):
                     self.change_x = 0
 
     def draw(self):
-        # Отрисовка зомби
+
         arcade.draw_lbwh_rectangle_filled(
             self.center_x - self.width / 2,
             self.center_y - self.height / 2,
             self.width, self.height,
             (100, 150, 50)  # Зеленый цвет
         )
-        # Глаза
+
         eye_offset = 5 if self.direction > 0 else -5
         arcade.draw_circle_filled(
             self.center_x - 8 + eye_offset, self.center_y + 10,
@@ -196,6 +205,146 @@ class Door(arcade.Sprite):
         arcade.draw_circle_filled(
             self.center_x - 10, self.center_y,
             4, arcade.color.GOLD
+        )
+
+
+class ShopButton:
+
+
+    def __init__(self):
+        self.x = SCREEN_WIDTH - 100
+        self.y = SCREEN_HEIGHT - 80
+        self.width = 80
+        self.height = 80
+        self.is_hovered = False
+        self.is_open = False
+
+    def check_hover(self, mouse_x, mouse_y):
+        self.is_hovered = (self.x - self.width / 2 < mouse_x < self.x + self.width / 2 and
+                           self.y - self.height / 2 < mouse_y < self.y + self.height / 2)
+        return self.is_hovered
+
+    def check_click(self, mouse_x, mouse_y):
+        return self.check_hover(mouse_x, mouse_y)
+
+    def draw(self):
+
+        if self.is_open:
+            color = (100, 200, 100)  # Зеленый когда открыт
+        elif self.is_hovered:
+            color = (200, 200, 100)  # Желтый при наведении
+        else:
+            color = (100, 100, 200)  # Синий обычно
+
+
+        arcade.draw_lbwh_rectangle_filled(
+            self.x - self.width / 2,
+            self.y - self.height / 2,
+            self.width, self.height,
+            color
+        )
+
+        arcade.draw_lbwh_rectangle_outline(
+            self.x - self.width / 2,
+            self.y - self.height / 2,
+            self.width, self.height,
+            arcade.color.WHITE, 3
+        )
+
+
+        arcade.draw_text(
+            "🛒",
+            self.x, self.y,
+            arcade.color.WHITE, 40,
+            anchor_x="center", anchor_y="center"
+        )
+
+    def draw_shop_menu(self, player):
+
+        if not self.is_open:
+            return
+
+
+        arcade.draw_lbwh_rectangle_filled(
+            SCREEN_WIDTH // 2 - 250,
+            SCREEN_HEIGHT // 2 - 200,
+            500, 400,
+            (50, 50, 80, 240)
+        )
+
+        arcade.draw_lbwh_rectangle_outline(
+            SCREEN_WIDTH // 2 - 250,
+            SCREEN_HEIGHT // 2 - 200,
+            500, 400,
+            arcade.color.GOLD, 3
+        )
+
+
+        arcade.draw_text(
+            "МАГАЗИН",
+            SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 150,
+            arcade.color.GOLD, 36,
+            anchor_x="center", anchor_y="center"
+        )
+
+
+        arcade.draw_text(
+            f"Монеты: {player.total_coins}",
+            SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 100,
+            arcade.color.YELLOW, 24,
+            anchor_x="center", anchor_y="center"
+        )
+
+
+        arcade.draw_text(
+            f"Жизни: {player.lives}",
+            SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 60,
+            arcade.color.RED, 24,
+            anchor_x="center", anchor_y="center"
+        )
+
+
+        can_afford = player.total_coins >= LIFE_COST
+        price_color = arcade.color.GREEN if can_afford else arcade.color.RED
+
+
+        arcade.draw_text(
+            "❤️",
+            SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2,
+            arcade.color.RED, 40,
+            anchor_x="center", anchor_y="center"
+        )
+
+
+        arcade.draw_text(
+            f"Цена: {LIFE_COST} монет",
+            SCREEN_WIDTH // 2 + 50, SCREEN_HEIGHT // 2,
+            price_color, 20,
+            anchor_x="center", anchor_y="center"
+        )
+
+
+        button_color = (0, 150, 0) if can_afford else (100, 100, 100)
+        arcade.draw_lbwh_rectangle_filled(
+            SCREEN_WIDTH // 2 - 75,
+            SCREEN_HEIGHT // 2 - 60,
+            150, 40,
+            button_color
+        )
+
+        arcade.draw_text(
+            "КУПИТЬ",
+            SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 - 40,
+            arcade.color.WHITE, 20,
+            anchor_x="center", anchor_y="center"
+        )
+
+
+        arcade.draw_text(
+            "Нажмите E для покупки, ESC для выхода",
+            SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 - 120,
+            arcade.color.LIGHT_GRAY, 16,
+            anchor_x="center", anchor_y="center"
         )
 
 
@@ -248,9 +397,9 @@ class MyGame(arcade.Window):
     def __init__(self):
         super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
 
-        # Камеры: мир и GUI
-        self.world_camera = arcade.camera.Camera2D()  # Камера для игрового мира
-        self.gui_camera = arcade.camera.Camera2D()  # Камера для объектов интерфейса
+
+        self.world_camera = arcade.camera.Camera2D()
+        self.gui_camera = arcade.camera.Camera2D()
 
         self.background = arcade.load_texture("PICTURES/backgrounds/lobby.jpg")
 
@@ -267,10 +416,15 @@ class MyGame(arcade.Window):
         self.left_pressed = False
         self.right_pressed = False
         self.space_pressed = False
+        self.e_pressed = False
 
         self.game_victory = False
         self.game_over = False
+        self.game_state = "playing"
         self.round = 1
+
+
+        self.shop_button = ShopButton()
 
         self.restart_button = Button(
             SCREEN_WIDTH // 2, 150,
@@ -281,7 +435,7 @@ class MyGame(arcade.Window):
             arcade.color.WHITE
         )
 
-        # Размеры мира
+
         self.world_width = SCREEN_WIDTH
         self.world_height = SCREEN_HEIGHT
 
@@ -313,56 +467,27 @@ class MyGame(arcade.Window):
 
             self.collision_list = self.tile_map.sprite_lists["collision"]
 
-            # Определяем размеры мира по карте
+
             self.world_width = int(self.tile_map.width * self.tile_map.tile_width * TILE_SCALING)
             self.world_height = int(self.tile_map.height * self.tile_map.tile_height * TILE_SCALING)
 
         except Exception as e:
-            print(f"Ошибка загрузки карты: {e}. Создаю тестовые платформы.")
-
-            # Создаем несколько платформ для теста
-            floor = arcade.Sprite()
-            floor.width = self.world_width
-            floor.height = 50
-            floor.center_x = self.world_width // 2
-            floor.center_y = 50
-            self.collision_list.append(floor)
-
-            platform_positions = [
-                (300, 200, 200, 20),
-                (600, 300, 200, 20),
-                (900, 400, 200, 20),
-                (400, 500, 150, 20),
-                (800, 600, 150, 20),
-                (1100, 350, 150, 20),
-                (1300, 450, 150, 20),
-            ]
-
-            for x, y, width, height in platform_positions:
-                platform = arcade.Sprite()
-                platform.width = width
-                platform.height = height
-                platform.center_x = x
-                platform.center_y = y
-                self.collision_list.append(platform)
-
             door = Door(1700, 100)
             self.door_list.append(door)
 
-        # Создание монет - УБЕДИМСЯ, ЧТО ОНИ НЕ В ПЛАТФОРМАХ
+
         self.spawn_coins(COINS_PER_ROUND)
 
-        # Создание зомби
+
         self.spawn_zombies(ZOMBIE_COUNT)
 
         print(f"Раунд {self.round}. Монет на уровне: {len(self.coin_list)}, Зомби: {len(self.zombie_list)}")
         print(f"Размер мира: {self.world_width} x {self.world_height}")
 
     def spawn_coins(self, count):
-        """Создание монет с проверкой на платформы"""
         coins_created = 0
         attempts = 0
-        max_attempts = 1000  # Предотвращаем бесконечный цикл
+        max_attempts = 1000
 
         while coins_created < count and attempts < max_attempts:
             attempts += 1
@@ -370,10 +495,7 @@ class MyGame(arcade.Window):
             y = random.randint(100, self.world_height - 100)
             coin = Coin(x, y)
 
-            # Проверяем, не находится ли монета в платформе
             collision_with_platforms = arcade.check_for_collision_with_list(coin, self.collision_list)
-
-            # Также проверяем, не слишком близко к зомби (опционально)
             collision_with_zombies = arcade.check_for_collision_with_list(coin, self.zombie_list)
 
             if not collision_with_platforms and not collision_with_zombies:
@@ -383,7 +505,6 @@ class MyGame(arcade.Window):
         print(f"Создано монет: {coins_created}")
 
     def spawn_zombies(self, count):
-        """Создание зомби с проверкой на платформы"""
         zombies_created = 0
         attempts = 0
         max_attempts = 1000
@@ -391,18 +512,15 @@ class MyGame(arcade.Window):
         while zombies_created < count and attempts < max_attempts:
             attempts += 1
             x = random.randint(200, self.world_width - 200)
-            # Размещаем зомби на платформах
-            y = 400  # Начальная высота
+            y = 400
 
-            # Ищем подходящую платформу для зомби
             for platform in self.collision_list:
                 if abs(x - platform.center_x) < platform.width / 2:
-                    y = platform.top + 30  # Ставим зомби на платформу
+                    y = platform.top + 30
                     break
 
             zombie = Zombie(x, y)
 
-            # Проверяем, не находится ли зомби в другой платформе
             collision_with_platforms = arcade.check_for_collision_with_list(zombie, self.collision_list)
 
             if not collision_with_platforms:
@@ -412,11 +530,9 @@ class MyGame(arcade.Window):
         print(f"Создано зомби: {zombies_created}")
 
     def next_round(self):
-        """Переход к следующему раунду"""
         self.round += 1
         self.player.coins = 0
         self.spawn_coins(COINS_PER_ROUND)
-        # Добавляем новых зомби с каждым раундом
         self.spawn_zombies(2)
         print(f"Раунд {self.round}! Появились новые монеты и зомби!")
 
@@ -424,7 +540,6 @@ class MyGame(arcade.Window):
         """Отрисовка"""
         self.clear()
 
-        # 1) Мир (камера следует за игроком)
         self.world_camera.use()
 
         arcade.draw_texture_rect(
@@ -437,15 +552,16 @@ class MyGame(arcade.Window):
             )
         )
 
-
         self.collision_list.draw()
         self.door_list.draw()
         self.coin_list.draw()
         self.zombie_list.draw()
         self.player_list.draw()
 
+        # 2) GUI
         self.gui_camera.use()
 
+        # Интерфейс
         arcade.draw_lbwh_rectangle_filled(
             SCREEN_WIDTH // 2 - 100,
             SCREEN_HEIGHT - 80,
@@ -483,12 +599,11 @@ class MyGame(arcade.Window):
         )
 
         arcade.draw_text(
-            f"Всего собрано: {self.player.total_coins}",
+            f"Всего монет: {self.player.total_coins}",
             SCREEN_WIDTH // 2, SCREEN_HEIGHT - 180,
             arcade.color.WHITE, 18,
             anchor_x="center", anchor_y="center"
         )
-
 
         arcade.draw_text(
             f"Раунд: {self.round}",
@@ -496,6 +611,13 @@ class MyGame(arcade.Window):
             arcade.color.CYAN, 18,
             anchor_x="center", anchor_y="center"
         )
+
+        # Кнопка магазина в правом верхнем углу
+        self.shop_button.draw()
+
+        # Меню магазина
+        if self.game_state == "shop":
+            self.shop_button.draw_shop_menu(self.player)
 
         # Экран победы
         if self.game_victory:
@@ -548,6 +670,11 @@ class MyGame(arcade.Window):
         if self.game_victory or self.game_over:
             return
 
+        # Если мы в магазине, не обновляем игру
+        if self.game_state == "shop":
+            return
+
+        # Управление
         if self.left_pressed and not self.right_pressed:
             self.player.move_left()
         elif self.right_pressed and not self.left_pressed:
@@ -558,6 +685,7 @@ class MyGame(arcade.Window):
         self.player.update()
         self.player.update_physics(self.collision_list)
 
+        # Проверка падения
         if self.player.center_y < -100:
             self.player.center_x = 100
             self.player.center_y = 300
@@ -570,21 +698,20 @@ class MyGame(arcade.Window):
                 self.game_over = True
                 print("Игра окончена!")
 
+        # Обновление зомби
         for zombie in self.zombie_list:
             zombie.update(self.collision_list)
 
-
+        # Проверка столкновений с зомби
         zombies_to_remove = []
         for zombie in self.zombie_list:
             if self.player.collides_with_sprite(zombie):
-
                 if self.player.change_y < 0 and self.player.bottom < zombie.center_y + 10:
-
                     zombies_to_remove.append(zombie)
-
+                    print("Зомби убит прыжком на голову!")
                 else:
-
                     self.player.lives -= 1
+                    print(f"Зомби атаковал! Жизней осталось: {self.player.lives}")
 
                     if self.player.center_x < zombie.center_x:
                         self.player.center_x -= 50
@@ -598,7 +725,7 @@ class MyGame(arcade.Window):
         for zombie in zombies_to_remove:
             self.zombie_list.remove(zombie)
 
-
+        # Сбор монет
         coins_collected = []
         for coin in self.coin_list:
             if self.player.collides_with_sprite(coin):
@@ -606,21 +733,25 @@ class MyGame(arcade.Window):
                 self.player.coins += 1
                 self.player.total_coins += 1
                 coins_collected.append(coin)
+                print(f"Монета собрана! Раунд: {self.player.coins}/{COINS_PER_ROUND}, Всего: {self.player.total_coins}")
 
         for coin in coins_collected:
             self.coin_list.remove(coin)
 
+        # Проверка двери
         if self.player.coins >= COINS_PER_ROUND:
             for door in self.door_list:
                 if self.player.collides_with_sprite(door):
                     self.next_round()
                     break
 
+        # Прыжок
         if self.space_pressed:
             if self.player.jump():
                 pass
             self.space_pressed = False
 
+        # Камера следует за игроком
         target_position = (
             self.player.center_x,
             self.player.center_y
@@ -650,8 +781,22 @@ class MyGame(arcade.Window):
             self.right_pressed = True
         elif key == arcade.key.UP or key == arcade.key.W or key == arcade.key.SPACE:
             self.space_pressed = True
+        elif key == arcade.key.E:
+            if self.game_state == "shop":
+                # Покупка в магазине
+                if self.player.buy_life():
+                    print(f"Куплена жизнь! Теперь жизней: {self.player.lives}")
+            else:
+                # Открытие магазина (всегда можно открыть, не нужно подходить)
+                self.game_state = "shop"
+                self.shop_button.is_open = True
         elif key == arcade.key.ESCAPE:
-            arcade.close_window()
+            if self.game_state == "shop":
+                # Выход из магазина
+                self.game_state = "playing"
+                self.shop_button.is_open = False
+            else:
+                arcade.close_window()
 
     def on_key_release(self, key, modifiers):
         if key == arcade.key.LEFT or key == arcade.key.A:
@@ -665,10 +810,22 @@ class MyGame(arcade.Window):
         if self.game_victory or self.game_over:
             self.restart_button.check_hover(x, y)
 
+        # Проверка наведения на кнопку магазина
+        self.shop_button.check_hover(x, y)
+
     def on_mouse_press(self, x, y, button, modifiers):
         if self.game_victory or self.game_over:
             if self.restart_button.check_click(x, y):
                 self.restart_game()
+
+        # Клик по кнопке магазина
+        if self.shop_button.check_click(x, y):
+            if self.game_state == "shop":
+                self.game_state = "playing"
+                self.shop_button.is_open = False
+            else:
+                self.game_state = "shop"
+                self.shop_button.is_open = True
 
     def restart_game(self):
         print("Перезапуск игры...")
@@ -686,12 +843,17 @@ class MyGame(arcade.Window):
         self.spawn_coins(COINS_PER_ROUND)
         self.spawn_zombies(ZOMBIE_COUNT)
         self.round = 1
+        self.game_state = "playing"
+        self.shop_button.is_open = False
 
         self.game_victory = False
         self.game_over = False
 
         # Сброс камеры
         self.world_camera.position = (self.player.center_x, self.player.center_y)
+
+        print(
+            f"Игра перезапущена. Раунд {self.round}. Монет на уровне: {len(self.coin_list)}, Зомби: {len(self.zombie_list)}")
 
 
 def main():
