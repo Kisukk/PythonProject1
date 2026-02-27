@@ -4,53 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0edd331f-8068-4332-99ac-353ab5b8a3a3" name="Changes" comment="картинки для игрока">
-      <change afterPath="$PROJECT_DIR$/PICTURES/pavuk/atak0.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PICTURES/pavuk/atak2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PICTURES/pavuk/atak3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PICTURES/pavuk/atak4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PICTURES/pavuk/atak5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PICTURES/pavuk/atak6.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PICTURES/pavuk/died0.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PICTURES/pavuk/died1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PICTURES/pavuk/died2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PICTURES/pavuk/died3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PICTURES/pavuk/died4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PICTURES/pavuk/died5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PICTURES/pavuk/idle.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PICTURES/zombie/atak0.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PICTURES/zombie/atak1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PICTURES/zombie/atak2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PICTURES/zombie/atak3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PICTURES/zombie/atak4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PICTURES/zombie/atak5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PICTURES/zombie/atak6.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PICTURES/zombie/died0.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PICTURES/zombie/died1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PICTURES/zombie/died2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PICTURES/zombie/died3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PICTURES/zombie/died4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PICTURES/zombie/idle.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PICTURES/zombie/spawn0.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PICTURES/zombie/spawn1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PICTURES/zombie/spawn2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PICTURES/zombie/spawn3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PICTURES/zombie/spawn4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PICTURES/zombie/spawn5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PICTURES/zombie/spawn6.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PICTURES/zombie/spawn7.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PICTURES/zombie/spawn8.png" afterDir="false" />
+    <list default="true" id="0edd331f-8068-4332-99ac-353ab5b8a3a3" name="Changes" comment="бекграунд">
+      <change afterPath="$PROJECT_DIR$/123/castle.tmx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/123/castlesheet.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/123/license.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/123/preview.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/123/proekt.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/123/sample.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PICTURES/skelet/217853.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ffff.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PICTURES/down_viking.png" beforeDir="false" afterPath="$PROJECT_DIR$/PICTURES/pacik/down_viking.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PICTURES/idle_viking.png" beforeDir="false" afterPath="$PROJECT_DIR$/PICTURES/pacik/idle_viking.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PICTURES/idlesheet.png" beforeDir="false" afterPath="$PROJECT_DIR$/PICTURES/pacik/idlesheet.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PICTURES/jump_viking.png" beforeDir="false" afterPath="$PROJECT_DIR$/PICTURES/pacik/jump_viking.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PICTURES/krasni.png" beforeDir="false" afterPath="$PROJECT_DIR$/PICTURES/pacik/krasni.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PICTURES/pomer_viking.png" beforeDir="false" afterPath="$PROJECT_DIR$/PICTURES/pacik/pomer_viking.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PICTURES/potyaryal_sheet.png" beforeDir="false" afterPath="$PROJECT_DIR$/PICTURES/pacik/potyaryal_sheet.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PICTURES/vprocesse.png" beforeDir="false" afterPath="$PROJECT_DIR$/PICTURES/pacik/vprocesse.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PICTURES/walk_viking.png" beforeDir="false" afterPath="$PROJECT_DIR$/PICTURES/pacik/walk_viking.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/arcade.py" beforeDir="false" afterPath="$PROJECT_DIR$/arcade.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/arcade.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,22 +59,30 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python.123.executor": "Run",
+    "Python.arcade.executor": "Run",
+    "Python.ffff.executor": "Run",
+    "Python.proekt.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "C:/Users/kisukk/PycharmProjects/PythonProject1/PICTURES/zombie"
+    "last_opened_file_path": "C:/Users/kisukk/PycharmProjects/PythonProject1/PICTURES/skelet",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\kisukk\PycharmProjects\PythonProject1\PICTURES\skelet" />
+      <recent name="C:\Users\kisukk\PycharmProjects\PythonProject1\PICTURES\backgrounds" />
       <recent name="C:\Users\kisukk\PycharmProjects\PythonProject1\PICTURES\zombie" />
       <recent name="C:\Users\kisukk\PycharmProjects\PythonProject1\PICTURES\pavuk" />
       <recent name="C:\Users\kisukk\PycharmProjects\PythonProject1\PICTURES" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\kisukk\PycharmProjects\PythonProject1\123" />
+      <recent name="C:\Users\kisukk\PycharmProjects\PythonProject1" />
       <recent name="C:\Users\kisukk\PycharmProjects\PythonProject1\PICTURES\pacik" />
       <recent name="C:\Users\kisukk\PycharmProjects\PythonProject1\PICTURES" />
-      <recent name="C:\Users\kisukk\PycharmProjects\PythonProject1" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -152,12 +124,30 @@
       <option name="project" value="LOCAL" />
       <updated>1770393302274</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="картинкидлявсех">
+      <option name="closed" value="true" />
+      <created>1770395661891</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1770395661891</updated>
+    </task>
+    <task id="LOCAL-00005" summary="бекграунд">
+      <option name="closed" value="true" />
+      <created>1770395946201</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1770395946201</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="начало" />
     <MESSAGE value="картинки для игрока" />
-    <option name="LAST_COMMIT_MESSAGE" value="картинки для игрока" />
+    <MESSAGE value="картинкидлявсех" />
+    <MESSAGE value="бекграунд" />
+    <option name="LAST_COMMIT_MESSAGE" value="бекграунд" />
   </component>
 </project>
