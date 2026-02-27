@@ -172,17 +172,22 @@ class Zombie(arcade.Sprite):
 
         self.on_ground = False
         for platform in platforms:
+
             if self.collides_with_sprite(platform):
+
                 if self.change_y < 0:
                     self.bottom = platform.top
                     self.change_y = 0
                     self.on_ground = True
+
                 elif self.change_y > 0:
                     self.top = platform.bottom
                     self.change_y = 0
+
                 elif self.change_x > 0:
                     self.right = platform.left
                     self.change_x = 0
+
                 elif self.change_x < 0:
                     self.left = platform.right
                     self.change_x = 0
@@ -190,6 +195,7 @@ class Zombie(arcade.Sprite):
     def draw(self):
         if self.facing_right:
             self.texture.draw_scaled(self.center_x, self.center_y, self.scale)
+
         else:
             self.texture.draw_scaled(self.center_x, self.center_y, self.scale, mirrored=True)
 
@@ -325,12 +331,17 @@ class ShopButton:
         can_afford_life = player.total_coins >= LIFE_COST
         price_color_life = arcade.color.GREEN if can_afford_life else arcade.color.RED
 
+
+        #отрисовка жизней
+
         arcade.draw_text(
             "❤️",
             SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 + y_offset,
             arcade.color.RED, 40,
             anchor_x="center", anchor_y="center"
         )
+
+        #отрисовка цены
 
         arcade.draw_text(
             f"Цена: {LIFE_COST} монет",
@@ -877,10 +888,13 @@ class MyGame(arcade.Window):
                 self.game_state = "shop"
                 self.shop_button.is_open = True
 
+
         elif key == arcade.key.KEY_1:
             if self.game_state == "shop":
                 if self.player.buy_life():
                     print(f"Куплена жизнь! Теперь жизней: {self.player.lives}")
+
+        # удвоение монет
 
         elif key == arcade.key.KEY_2:
             if self.game_state == "shop" and self.player.zombies_killed >= ZOMBIES_NEEDED_FOR_DOUBLE:
